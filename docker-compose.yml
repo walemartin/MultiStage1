@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  multistage1:
+    image: ${DOCKER_REGISTRY-}multistage1
+    build:
+      context: .
+      dockerfile: MultiStage1/Dockerfile
+    ports:
+      - "9000:443"
+      - "9001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+  multiapi:
+    image: ${DOCKER_REGISTRY-}multiapi
+    build:
+      context: .
+      dockerfile: MultiApi/Dockerfile
+
